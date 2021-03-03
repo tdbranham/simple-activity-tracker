@@ -8,16 +8,14 @@ const { render } = require('ejs');
 //express app
 const app = express();
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8000;
-}
+var port_number = server.listen(process.env.PORT || 3000);
+app.listen(port_number);
 console.log(process.env.PORT);
 
 // connect to mongodb
 const dbURI = process.env.MON;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
-    .then((result) => app.listen(port))
+    .then((result) => app.listen(port_number))
     .catch((err) => console.log(err));
 
 // register view engine
