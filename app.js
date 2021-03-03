@@ -11,7 +11,7 @@ const app = express();
 console.log("The port is:" + process.env.PORT);
 
 // connect to mongodb
-const dbURI = process.env.MON;
+const dbURI = MON;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
     .then((result) => app.listen(process.env.PORT))
     .catch((err) => console.log(err));
@@ -25,16 +25,10 @@ app.use(express.urlencoded({ extended: true}));
 app.use(morgan('dev'));
 
 // routes
-app.get('/', (req, res) => {
-    res.redirect('/blogs');
-});
 
-app.get('/about', (req, res) => {
-    res.render('about', { title: 'About' });
-});
 
 // blog routes
-app.get('/blogs', (req, res) => {
+app.get('/', (req, res) => {
     Blog.find().sort({ createdAt: -1 })
         .then((result) => {
             res.render('index', { title: 'All Blogs', blogs: result})
@@ -44,12 +38,12 @@ app.get('/blogs', (req, res) => {
         });
 });
 
-app.post('/blogs', (req, res) => {
+app.post('/', (req, res) => {
     const blog = new Blog(req.body);
 
     blog.save()
         .then((result) => {
-            res.redirect('/blogs');
+            res.redirect('/');
         })
         .catch((err) => {
             console.log(err);
@@ -60,7 +54,7 @@ app.get('/about/create', (req, res) => {
     res.render('create', { title: 'create' });
 });
 
-app.get('/blogs/:id', (req, res) => {
+app.get('/:id', (req, res) => {
     const id = req.params.id;
     Blog.findById(id)
         .then((result)=> {
@@ -71,7 +65,7 @@ app.get('/blogs/:id', (req, res) => {
         })
 });
 
-app.delete('/blogs/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
     const id = req.params.id;
 
     Blog.findByIdAndDelete(id)

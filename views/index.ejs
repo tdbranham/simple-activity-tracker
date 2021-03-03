@@ -11,10 +11,10 @@
 
         <% if (blogs.length > 0) { %>
             <% blogs.forEach(blog => { %>
-            <a class="single" href="/blogs/<%= blog._id %>">
+            <a class="single" href="/<%= blog._id %>">
                 <h3 class=title><%= blog.title %></h3>
-                <p class=snippet><%= new Date(blog.snippet).toLocaleDateString( 'en-gb' );%></p>
-                <p class=time><%= blog.etime %></p>
+                <p class=snippet>Date: <%= new Date(blog.snippet).toLocaleDateString( 'en-gb' );%></p>
+                <p class=time>Time: <%= blog.etime %></p>
                 <!-- <p class=snippet><blog.snippet %></p> -->
             </a>
 
