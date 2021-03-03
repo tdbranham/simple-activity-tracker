@@ -8,13 +8,12 @@ const { render } = require('ejs');
 //express app
 const app = express();
 
-app.listen(process.env.PORT);
-console.log(process.env.PORT);
+console.log("The port is:" + process.env.PORT);
 
 // connect to mongodb
 const dbURI = process.env.MON;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
-    .then((result) => app.listen(3000))
+    .then((result) => app.listen(process.env.PORT))
     .catch((err) => console.log(err));
 
 // register view engine
@@ -26,11 +25,19 @@ app.use(express.urlencoded({ extended: true}));
 app.use(morgan('dev'));
 
 // routes
-// blog routes
 app.get('/', (req, res) => {
+    res.redirect('/blogs');
+});
+
+app.get('/about', (req, res) => {
+    res.render('about', { title: 'About' });
+});
+
+// blog routes
+app.get('/blogs', (req, res) => {
     Blog.find().sort({ createdAt: -1 })
         .then((result) => {
-            res.render('index', { title: 'All Events', blogs: result})
+            res.render('index', { title: 'All Blogs', blogs: result})
         })
         .catch((err) => {
             console.log(err);
@@ -42,34 +49,34 @@ app.post('/blogs', (req, res) => {
 
     blog.save()
         .then((result) => {
-            res.redirect('/');
+            res.redirect('/blogs');
         })
         .catch((err) => {
             console.log(err);
         })
 });
 
-app.get('/blogs/create', (req, res) => {
+app.get('/about/create', (req, res) => {
     res.render('create', { title: 'create' });
 });
 
-app.get('/:id', (req, res) => {
+app.get('/blogs/:id', (req, res) => {
     const id = req.params.id;
     Blog.findById(id)
         .then((result)=> {
-            res.render('details', {blog: result, title: 'Details'});
+            res.render('details', {blog: result, title: 'Blog Details'});
         })
         .catch((err) => {
             console.log(err);
         })
 });
 
-app.delete('/:id', (req, res) => {
+app.delete('/blogs/:id', (req, res) => {
     const id = req.params.id;
 
     Blog.findByIdAndDelete(id)
         .then((result) => {
-            res.json({redirect: '/'})
+            res.json({redirect: '/blogs'})
         })
         .catch((err) => {
             console.log(err);
