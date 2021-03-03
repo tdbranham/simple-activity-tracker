@@ -8,14 +8,13 @@ const { render } = require('ejs');
 //express app
 const app = express();
 
-var port_number = server.listen(process.env.PORT || 3000);
-app.listen(port_number);
+app.listen(process.env.PORT);
 console.log(process.env.PORT);
 
 // connect to mongodb
 const dbURI = process.env.MON;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
-    .then((result) => app.listen(port_number))
+    .then((result) => app.listen(process.env.PORT))
     .catch((err) => console.log(err));
 
 // register view engine
