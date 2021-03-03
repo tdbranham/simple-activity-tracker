@@ -4,15 +4,15 @@ const mongoose = require('mongoose');
 const Blog = require('./models/blog');
 const { render } = require('ejs');
 
-// port setup
+
+//express app
+const app = express();
+
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 8000;
 }
 console.log(process.env.PORT);
-
-//express app
-const app = express();
 
 // connect to mongodb
 const dbURI = process.env.MON;
