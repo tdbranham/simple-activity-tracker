@@ -65,12 +65,12 @@ app.get('/:id', (req, res) => {
         })
 });
 
-app.delete('/blogs/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
     const id = req.params.id;
 
     Blog.findByIdAndDelete(id)
         .then((result) => {
-            res.json({redirect: '/blogs'})
+            res.json({redirect: '/'})
         })
         .catch((err) => {
             console.log(err);
