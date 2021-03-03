@@ -8,8 +8,7 @@ const { render } = require('ejs');
 //express app
 const app = express();
 
-app.listen(process.env.PORT);
-console.log(process.env.PORT);
+console.log("The port is:" + process.env.PORT);
 
 // connect to mongodb
 const dbURI = process.env.MON;
