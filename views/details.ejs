@@ -1,0 +1,38 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body>
+  <%- include("./partials/nav.ejs") %>
+
+<div class="details-full">
+  <div class="details">
+    <h2><%= blog.title %></h2>
+    <h3 class=snippet><%= new Date(blog.snippet).toLocaleDateString( 'en-gb' );%></h3>
+    <h3 class=time><%= blog.etime %></h3>
+    <div class="detials-body">
+      <p><%= blog.body %></p>
+    </div>
+    <a class="delete" data-doc="<%= blog._id %>">Delete</a>
+  </div>
+</div>
+
+  <%- include("./partials/footer.ejs") %>
+
+  <script>
+      const trashcan = document.querySelector('a.delete');
+
+      trashcan.addEventListener('click', (e) => {
+          const endpoint = `/blogs/${trashcan.dataset.doc}`;
+
+        fetch(endpoint, {
+            method: 'DELETE'
+        })
+        .then((response) => response.json())
+        .then((data) => window.location.href = data.redirect)
+        .catch((err) => {
+            console.log(err);
+        })
+      })
+  </script>
+</body>
+</html>
