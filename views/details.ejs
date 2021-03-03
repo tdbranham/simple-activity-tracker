@@ -9,6 +9,7 @@
     <h2><%= blog.title %></h2>
     <h3 class=snippet>Date: <%= new Date(blog.snippet).toLocaleDateString( 'en-gb' );%></h3>
     <h3 class=time>Time: <%= blog.etime %></h3>
+    <a class="details-route" href="<%= blog.route %>">Route Link</a>
     <div class="detials-body">
       <p><%= blog.body %></p>
     </div>

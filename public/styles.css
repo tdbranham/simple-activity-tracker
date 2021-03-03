@@ -70,10 +70,22 @@
 
     .blogs a{
       display: block;
-      margin: 40px 0;
+      margin: 10px 0;
       padding-bottom: 20px;
+    }
+
+    .route{
       border-bottom: 6px solid crimson;
     }
+
+    .details-route:hover{
+      color: crimson;
+    }
+
+    .route:hover{
+      color: crimson;
+    }
+
     .blogs a:hover h3{
       color: crimson;
     }

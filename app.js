@@ -11,7 +11,7 @@ const app = express();
 console.log("The port is:" + process.env.PORT);
 
 // connect to mongodb
-const dbURI = process.env.MON;
+const dbURI = process.env.MON
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
     .then((result) => app.listen(process.env.PORT))
     .catch((err) => console.log(err));
@@ -65,7 +65,7 @@ app.get('/:id', (req, res) => {
         })
 });
 
-app.delete('/:id', (req, res) => {
+app.delete('/blogs/:id', (req, res) => {
     const id = req.params.id;
 
     Blog.findByIdAndDelete(id)

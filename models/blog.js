@@ -16,6 +16,10 @@ const blogSchema = new Schema({
         type: String,
         required: true
     },
+    route: {
+        type: String,
+        required: true
+    },
     body: {
         type: String,
         required: true
